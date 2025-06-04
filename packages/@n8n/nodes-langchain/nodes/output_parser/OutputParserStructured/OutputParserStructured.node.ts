@@ -104,30 +104,15 @@ export class OutputParserStructured implements INodeType {
 					},
 				},
 			},
+		],
+		hints: [
 			{
-				displayName:
-					'The schema has to be defined in the <a target="_blank" href="https://json-schema.org/">JSON Schema</a> format. Look at <a target="_blank" href="https://json-schema.org/learn/miscellaneous-examples.html">this</a> page for examples.',
-				name: 'notice',
-				type: 'notice',
-				default: '',
-				displayOptions: {
-					hide: {
-						schemaType: ['fromJson'],
-					},
-				},
-			},
-			{
-				displayName: "Please note that we don't support references (using $refs) in JSON schema.",
-				name: 'jsonSchemaRefsWarning',
-				type: 'notice',
-				noDataExpression: true,
-				default: '',
-				displayOptions: {
-					show: {
-						schemaType: ['manual'],
-						inputSchema: [{ _cnd: { includes: '"$ref"' } }],
-					},
-				},
+				message: '$ref syntax in JSON schema is currently not supported',
+				type: 'warning',
+				location: 'outputPane',
+				whenToDisplay: 'afterExecution',
+				displayCondition:
+					'={{ $parameter["schemaType"] === "manual" && $parameter["inputSchema"]?.includes("$ref") }}',
 			},
 		],
 	};
