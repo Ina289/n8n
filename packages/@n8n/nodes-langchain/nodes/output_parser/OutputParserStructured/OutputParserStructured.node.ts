@@ -107,7 +107,8 @@ export class OutputParserStructured implements INodeType {
 		],
 		hints: [
 			{
-				message: '$ref syntax in JSON schema is currently not supported',
+				message:
+					'Fields that use $refs might have the wrong type, since this syntax is not currently supported',
 				type: 'warning',
 				location: 'outputPane',
 				whenToDisplay: 'afterExecution',
